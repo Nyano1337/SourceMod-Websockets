@@ -34,7 +34,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo add-apt-repository ppa:boost-latest/ppa
           sudo apt-get update
-          sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib libboost-dev:i386 libssl-dev:i386 libboost-system-dev:i386
+          sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib libssl-dev:i386 libboost-all-dev
         shell: pwsh
 
       - name: Build Jansson for Linux
