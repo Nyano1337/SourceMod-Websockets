@@ -16,9 +16,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, ubuntu-18.04]
         include:
           - os: ubuntu-latest
+            target-archs: x86
+          - os: ubuntu-18.04
             target-archs: x86
 
     steps:
