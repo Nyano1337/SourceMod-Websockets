@@ -1,0 +1,4 @@
+build/
+scripting/*.smx
+.idea
+.vscode

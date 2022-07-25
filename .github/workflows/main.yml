@@ -1,0 +1,56 @@
+name: build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            target-archs: x86
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+    
+      - name: Install library
+        if: runner.os == 'Linux'
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib libboost-dev:i386 libssl-dev:i386 libboost-system-dev:i386
+        shell: pwsh
+
+      - name: Build Jansson for Linux
+        if: runner.os == 'Linux'
+        run: |
+          mkdir ${{github.workspace}}/jansson/build
+          cd ${{github.workspace}}/jansson/build
+          cmake -DCMAKE_C_FLAGS=-m32 -DJANSSON_BUILD_SHARED_LIBS=0 -DJANSSON_BUILD_DOCS=OFF ..
+          cmake --build .
+
+      - name: Configure Linux CMake
+        if: runner.os == 'Linux'
+        run: cmake -B ${{github.workspace}}/build -D "TARGET=linux" -D "CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}" -D "JANSSON_LIBRARYDIR=${{github.workspace}}/jansson/build/lib" -D "BOOST_LIBRARYDIR=/usr/i386-linux-gnu"
+      
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+    
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ runner.os }}
+          path: ${{github.workspace}}/build/websocket.ext.so

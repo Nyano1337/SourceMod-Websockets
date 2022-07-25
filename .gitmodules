@@ -1,0 +1,15 @@
+[submodule "sourcemod"]
+	path = sourcemod
+	url = https://github.com/alliedmodders/sourcemod.git
+[submodule "amtl"]
+	path = amtl
+	url = https://github.com/alliedmodders/amtl.git
+[submodule "sourcepawn"]
+	path = sourcepawn
+	url = https://github.com/alliedmodders/sourcepawn.git
+[submodule "CxxUrl"]
+	path = CxxUrl
+	url = https://github.com/chmike/CxxUrl.git
+[submodule "jansson"]
+	path = jansson
+	url = https://github.com/akheron/jansson.git
