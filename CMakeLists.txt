@@ -33,9 +33,9 @@ set(CMAKE_SKIP_BUILD_RPATH true)
 set(CMAKE_VERBOSE_MAKEFILE false)
 
 if(${TARGET} STREQUAL Windows)
-    include_directories(sourcemod/public sourcepawn/include amtl amtl/amtl jansson/src CxxUrl)
+    include_directories(sourcemod/public sourcepawn/include amtl amtl/amtl jansson/build/include CxxUrl)
 else()
-    include_directories(sourcemod/public sourcepawn/include amtl amtl/amtl jansson/src CxxUrl)
+    include_directories(sourcemod/public sourcepawn/include amtl amtl/amtl jansson/build/include CxxUrl)
 endif()
 
 add_library(websocket.ext SHARED ${SOURCE_FILES})
