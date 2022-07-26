@@ -21,7 +21,7 @@ if(${TARGET} STREQUAL Windows)
     add_definitions(-DWIN32)
 else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${JANSSON_LIBRARYDIR} -std=c++17 -pipe -DSOURCEMOD_BUILD -fno-strict-aliasing -m32")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s -O3")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
 endif()
 
