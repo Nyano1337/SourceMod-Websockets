@@ -51,7 +51,6 @@ jobs:
         shell: pwsh
       
       - name: Build extension
-        if: runner.os == 'Windows'
         run: |
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
