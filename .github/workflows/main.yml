@@ -79,4 +79,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          path: ${{github.workspace}}/build/
+          if: runner.os == 'Windows'
+          path: ${{github.workspace}}/build/package
+          if: runner.os == 'Linux'
+          path: ${{github.workspace}}/build/websocket.ext.so
