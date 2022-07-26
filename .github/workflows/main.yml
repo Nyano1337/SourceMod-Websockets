@@ -54,7 +54,7 @@ jobs:
         run: |
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
-          python ../configure.py --sm-path ../sourcemod
+          python ../configure.py --sm-path ../sourcemod --enable-optimize
           ambuild
 
       - name: Upload artifacts
