@@ -24,8 +24,6 @@ for cxx in builder.targets:
 
   binary.compiler.includes += [
     os.path.join(builder.sourcePath, 'CxxUrl'),
-    os.path.join(builder.sourcePath, 'amtl'),
-    os.path.join(builder.sourcePath, 'amtl', 'amtl'),
     os.path.join(builder.sourcePath, 'jansson', 'include'),
     os.path.join(builder.sourcePath, 'OpenSSL', 'include'),
   ]
