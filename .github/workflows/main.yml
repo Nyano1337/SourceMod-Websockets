@@ -65,7 +65,7 @@ jobs:
       
       - name: Build For Linux
         if: runner.os == 'Linux'
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build/package --config ${{env.BUILD_TYPE}}
       
       - name: Build For Windows
         if: runner.os == 'Windows'
@@ -79,7 +79,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          if: runner.os == 'Windows'
           path: ${{github.workspace}}/build/package
-          if: runner.os == 'Linux'
-          path: ${{github.workspace}}/build/websocket.ext.so
