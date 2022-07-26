@@ -44,7 +44,7 @@ if(${TARGET} STREQUAL Windows)
     target_link_libraries(websocket.ext)
 else()
     set_target_properties(websocket.ext PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
-    target_link_libraries(websocket.ext -Wl,-Bdynamic -lpthread -Wl,--no-undefined -Wl,-Bstatic -lssl -lcrypto -ljansson -llibstdc++ -Wl,-Bdynamic -ldl)
+    target_link_libraries(websocket.ext -Wl,-Bdynamic -lpthread -Wl,--no-undefined -Wl,-Bstatic -lssl -lcrypto -ljansson -lstdc++ -Wl,-Bdynamic -ldl)
 endif()
 
 set_target_properties(websocket.ext PROPERTIES PREFIX "")
