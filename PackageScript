@@ -8,7 +8,7 @@ builder.SetBuildFolder('package')
 # Add any folders you need to this list
 folder_list = [
   'addons/sourcemod/extensions',
-  #'addons/sourcemod/scripting/include',
+  'addons/sourcemod/scripting/include',
   #'addons/sourcemod/gamedata',
   #'addons/sourcemod/configs',
 ]
@@ -28,10 +28,13 @@ def CopyFiles(src, dest, files):
     source_path = os.path.join(builder.sourcePath, src, source_file)
     builder.AddCopy(source_path, dest_entry)
 
-# Include files 
-# CopyFiles('include', 'addons/sourcemod/scripting/include',
-#   [ 'websocket.inc', ]
-# )
+#Include files 
+CopyFiles('include', 'addons/sourcemod/scripting/include',
+  [ 'websocket.inc' ]
+)
+CopyFiles('include/websocket', 'addons/sourcemod/scripting/include/websocket',
+  [ 'json.inc', 'ws.inc' ]
+)
 
 # GameData files
 #CopyFiles('gamedata', 'addons/sourcemod/gamedata',
