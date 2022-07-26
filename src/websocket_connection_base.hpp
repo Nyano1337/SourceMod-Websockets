@@ -4,11 +4,8 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio.hpp>
 #include <memory>
-#include "extension.hpp"
-
-#if defined _WINDOWS
 #include <map>
-#endif
+#include "extension.hpp"
 
 namespace websocket = boost::beast::websocket;
 namespace beast = boost::beast;
