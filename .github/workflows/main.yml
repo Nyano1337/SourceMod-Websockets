@@ -36,12 +36,19 @@ jobs:
         with:
           repository: alliedmodders/ambuild
           path: ambuild
-      
+
       - name: Install AMBuild
         uses: BSFishy/pip-action@v1
         with:
           packages: ./ambuild
-    
+
+      - name: checkout sourcemod
+        uses: actions/checkout@v2
+        with:
+          path: sourcemod
+          repository: alliedmodders/sourcemod
+          submodules: recursive
+
       - name: Install library
         if: runner.os == 'Linux'
         run: |
@@ -49,12 +56,12 @@ jobs:
           sudo apt-get update
           sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib
         shell: pwsh
-      
+
       - name: Build extension
         run: |
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
-          python ../configure.py --sm-path ../sourcemod --enable-optimize
+          python ../configure.py --enable-optimize --sm-path ${{github.workspace}}/sourcemod
           ambuild
 
       - name: Upload artifacts
