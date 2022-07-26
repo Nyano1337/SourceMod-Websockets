@@ -9,6 +9,7 @@ builder.SetBuildFolder('package')
 folder_list = [
   'addons/sourcemod/extensions',
   'addons/sourcemod/scripting/include',
+  'addons/sourcemod/scripting/include/websocket',
   #'addons/sourcemod/gamedata',
   #'addons/sourcemod/configs',
 ]
