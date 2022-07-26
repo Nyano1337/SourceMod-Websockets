@@ -17,9 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        include:
-          - os: ubuntu-latest
-            target-archs: x86
 
     steps:
       - uses: actions/checkout@v2
