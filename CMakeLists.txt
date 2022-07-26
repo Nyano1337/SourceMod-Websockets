@@ -13,20 +13,16 @@ set(SOURCE_FILES
     CxxUrl/url.cpp)
     
 # if(NOT TARGET)
-#     set(TARGET linux)
+#     set(TARGET Linux)
 # endif()
 
 if(${TARGET} STREQUAL Windows)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /WIN32 /MT /W3 /GR- /DSOURCEMOD_BUILD")
     add_definitions(-DWIN32)
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${JANSSON_LIBRARYDIR} -std=c++17 -pipe -DSOURCEMOD_BUILD -fno-strict-aliasing -m32")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${JANSSON_LIBRARYDIR} -std=c++17 -pipe -DSOURCEMOD_BUILD -D_LINUX -fno-strict-aliasing -m32")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s -O3")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3")
-endif()
-
-if(${TARGET} STREQUAL linux)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_LINUX")
 endif()
 
 set(CMAKE_SKIP_BUILD_RPATH true)

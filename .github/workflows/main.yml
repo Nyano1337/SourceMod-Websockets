@@ -41,7 +41,7 @@ jobs:
 
       - name: Configure Linux CMake
         if: runner.os == 'Linux'
-        run: cmake -B ${{github.workspace}}/build -D "TARGET=linux" -D "CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}" -D "JANSSON_LIBRARYDIR=${{github.workspace}}/jansson/build/lib"
+        run: cmake -B ${{github.workspace}}/build -D "TARGET=Linux" -D "CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}" -D "JANSSON_LIBRARYDIR=${{github.workspace}}/jansson/build/lib"
       
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
