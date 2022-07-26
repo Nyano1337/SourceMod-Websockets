@@ -236,6 +236,20 @@ static cell_t native_FromURL(IPluginContext *p_context, const cell_t *params) {
         }
 
         string path(url.path());
+
+        for (auto i = 0; i < url.query().size(); i++) {
+            if (i == 0) {
+                path.append("?");
+            } else {
+                path.append("&");
+            }
+
+            auto& q = url.query(i);
+            path.append(q.key());
+            path.append("=");
+            path.append(q.val());
+        }
+
         string host(url.host());
         if (url.scheme() == "wss") {
             if (url.port().empty()) {

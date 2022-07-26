@@ -13,7 +13,7 @@ void websocket_connection::connect() {
     snprintf(s_port, sizeof(s_port), "%hu", this->port);
     tcp::resolver::query query(this->address.c_str(), s_port);
     
-    extension.LogMessage("Resolving %s", address.c_str());
+    extension.LogMessage("Resolving %s:%d", address.c_str(), this->port);
     this->resolver->async_resolve(query, beast::bind_front_handler(&websocket_connection::on_resolve, this));
 }
 
