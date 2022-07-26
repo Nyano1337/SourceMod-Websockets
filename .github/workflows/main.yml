@@ -16,17 +16,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, ubuntu-18.04]
+        os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
             target-archs: x86
-          - os: ubuntu-18.04
+          - os: windows-latest
             target-archs: x86
 
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Checkout AMBuild
+        uses: actions/checkout@v2
+        with:
+          repository: alliedmodders/ambuild
+          path: ambuild
     
       - name: Install library
         if: runner.os == 'Linux'
@@ -49,11 +58,20 @@ jobs:
         if: runner.os == 'Linux'
         run: cmake -B ${{github.workspace}}/build -D "TARGET=linux" -D "CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}" -D "JANSSON_LIBRARYDIR=${{github.workspace}}/jansson/build/lib" -D "BOOST_LIBRARYDIR=/usr/i386-linux-gnu"
       
-      - name: Build
+      - name: Build For Linux
+        if: runner.os == 'Linux'
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-    
+      
+      - name: Build For Windows
+        if: runner.os == 'Windows'
+        run: |
+          mkdir ${{github.workspace}}/build
+          cd ${{github.workspace}}/build
+          python ../configure.py --sm-path ../sourcemod
+          ambuild
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}
-          path: ${{github.workspace}}/build/websocket.ext.so
+          path: ${{github.workspace}}/build/

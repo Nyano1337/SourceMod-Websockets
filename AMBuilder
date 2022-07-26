@@ -1,0 +1,50 @@
+# vim: set sts=2 ts=8 sw=2 tw=99 et ft=python:
+import os, sys
+import os.path
+
+projectName = 'websocket'
+
+libjansson = builder.Build('jansson/src/AMBuilder')
+
+for cxx in builder.targets:
+  binary = Extension.Library(builder, cxx, 'websocket.ext')
+  arch = binary.compiler.target.arch
+
+  binary.sources += [
+    'src/smsdk_ext.cpp',
+    'src/extension.cpp',
+    'src/event_loop.cpp',
+    'src/websocket_connection_base.cpp',
+    'src/websocket_connection_ssl.cpp',
+    'src/websocket_connection.cpp',
+    'src/json_natives.cpp',
+    'src/smn_websocket.cpp',
+    'CxxUrl/url.cpp',
+  ]
+
+  binary.compiler.includes += [
+    os.path.join(builder.sourcePath, 'CxxUrl'),
+    os.path.join(builder.sourcePath, 'amtl'),
+    os.path.join(builder.sourcePath, 'amtl', 'amtl'),
+    os.path.join(builder.sourcePath, 'jansson', 'include'),
+    os.path.join(builder.sourcePath, 'OpenSSL', 'include'),
+  ]
+
+  if binary.compiler.family == 'gcc' or binary.compiler.family == 'clang':
+    binary.compiler.cxxflags += ['-fno-rtti']
+  elif binary.compiler.family == 'msvc':
+    binary.compiler.cxxflags += ['/GR-']
+
+  binary.compiler.postlink += [
+    libjansson[arch].binary,
+    os.path.join(builder.sourcePath, 'OpenSSL/lib', 'libssl.lib'),
+    os.path.join(builder.sourcePath, 'OpenSSL/lib', 'libcrypto.lib'),
+  ]
+
+  boost = os.path.join(builder.currentSourcePath, 'boost_1_78_0')
+  boost_libpath = os.path.join(boost, 'stage', 'lib', 'win32')
+  libs = [os.path.join(boost_libpath, f) for f in os.listdir(boost_libpath) if os.path.isfile(os.path.join(boost_libpath, f))]
+  binary.compiler.cxxincludes += [boost]
+  binary.compiler.postlink += libs
+
+  Extension.extensions = [builder.Add(binary)]

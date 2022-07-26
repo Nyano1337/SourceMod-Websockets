@@ -6,6 +6,10 @@
 #include <memory>
 #include "extension.hpp"
 
+#if defined _WINDOWS
+#include <map>
+#endif
+
 namespace websocket = boost::beast::websocket;
 namespace beast = boost::beast;
 using tcp = boost::asio::ip::tcp;

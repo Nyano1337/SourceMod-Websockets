@@ -88,6 +88,7 @@ static cell_t native_WebSocketSSL(IPluginContext *p_context, const cell_t *param
 static cell_t native_Connect(IPluginContext *p_context, const cell_t *params) {
     websocket_connection_base *connection;
     if (websocket_read_handle(params[1], p_context, &connection) != HandleError_None) {
+        smutils->LogMessage(myself, "reading this pointer");
         return 0;
     }
 
@@ -257,6 +258,9 @@ static cell_t native_FromURL(IPluginContext *p_context, const cell_t *params) {
 
 
 const sp_nativeinfo_t sm_websocket_natives[] = {
+    {"WebSocket.FromURL", native_FromURL},
+    {"WebSocket.Create", native_WebSocket},
+    {"WebSocket.CreateSSL", native_WebSocketSSL},
     {"WebSocket.Connect", native_Connect},
     {"WebSocket.SetHeader", native_SetHeader},
     {"WebSocket.Close", native_Close},
