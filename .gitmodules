@@ -10,6 +10,3 @@
 [submodule "CxxUrl"]
 	path = CxxUrl
 	url = https://github.com/chmike/CxxUrl.git
-[submodule "jansson"]
-	path = jansson
-	url = https://github.com/akheron/jansson.git
