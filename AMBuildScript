@@ -140,7 +140,6 @@ class ExtensionConfig(object):
       '-Wno-array-bounds',
       '-msse',
       '-fvisibility=hidden',
-      '-fexceptions',
     ]
 
     if cxx.version == 'apple-clang-6.0' or cxx.version == 'clang-3.4':
@@ -149,7 +148,6 @@ class ExtensionConfig(object):
       cxx.cxxflags += ['-std=c++17']
 
     cxx.cxxflags += [
-      '-fno-exceptions',
       '-fno-threadsafe-statics',
       '-Wno-non-virtual-dtor',
       '-Wno-overloaded-virtual',

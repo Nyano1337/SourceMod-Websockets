@@ -46,28 +46,11 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo dpkg --add-architecture i386
-          sudo add-apt-repository ppa:boost-latest/ppa
           sudo apt-get update
-          sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib libboost-dev:i386 libssl-dev:i386
+          sudo apt install -yq --no-install-recommends gcc-multilib g++-multilib
         shell: pwsh
-
-      - name: Build Jansson for Linux
-        if: runner.os == 'Linux'
-        run: |
-          mkdir ${{github.workspace}}/jansson/build
-          cd ${{github.workspace}}/jansson/build
-          cmake -DCMAKE_C_FLAGS=-m32 -DJANSSON_BUILD_SHARED_LIBS=0 -DJANSSON_BUILD_DOCS=OFF ..
-          cmake --build .
-
-      - name: Configure Linux CMake
-        if: runner.os == 'Linux'
-        run: cmake -B ${{github.workspace}}/build/package -D "TARGET=Linux" -D "CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}" -D "JANSSON_LIBRARYDIR=${{github.workspace}}/jansson/build/lib"
       
-      - name: Build For Linux
-        if: runner.os == 'Linux'
-        run: cmake --build ${{github.workspace}}/build/package --config ${{env.BUILD_TYPE}}
-      
-      - name: Build For Windows
+      - name: Build extension
         if: runner.os == 'Windows'
         run: |
           mkdir ${{github.workspace}}/build

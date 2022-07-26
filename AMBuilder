@@ -37,14 +37,17 @@ for cxx in builder.targets:
 
   binary.compiler.postlink += [
     libjansson[arch].binary,
-    os.path.join(builder.sourcePath, 'OpenSSL/lib', 'libssl.lib'),
-    os.path.join(builder.sourcePath, 'OpenSSL/lib', 'libcrypto.lib'),
   ]
 
   boost = os.path.join(builder.currentSourcePath, 'boost_1_78_0')
-  boost_libpath = os.path.join(boost, 'stage', 'lib', 'win32')
+  boost_libpath = os.path.join(boost, 'stage', 'lib', sys.platform)
   libs = [os.path.join(boost_libpath, f) for f in os.listdir(boost_libpath) if os.path.isfile(os.path.join(boost_libpath, f))]
   binary.compiler.cxxincludes += [boost]
+  binary.compiler.postlink += libs
+
+  openssl = os.path.join(builder.currentSourcePath, 'OpenSSL')
+  openssl_libpath = os.path.join(openssl, 'lib', sys.platform)
+  libs = [os.path.join(openssl_libpath, f) for f in os.listdir(openssl_libpath) if os.path.isfile(os.path.join(openssl_libpath, f))]
   binary.compiler.postlink += libs
 
   Extension.extensions = [builder.Add(binary)]
