@@ -39,7 +39,7 @@ for cxx in builder.targets:
     libjansson[arch].binary,
   ]
 
-  boost = os.path.join(builder.currentSourcePath, 'boost_1_73_0')
+  boost = os.path.join(builder.currentSourcePath, 'boost_1_78_0')
   boost_libpath = os.path.join(boost, 'stage', 'lib', sys.platform)
   libs = [os.path.join(boost_libpath, f) for f in os.listdir(boost_libpath) if os.path.isfile(os.path.join(boost_libpath, f))]
   binary.compiler.cxxincludes += [boost]
